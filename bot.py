@@ -3,7 +3,6 @@ import os
 import logging
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-from datetime import datetime
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -22,14 +21,9 @@ async def ridecheck(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "- Weather: 83°F, 38% humidity, 7 mph wind"
     )
 
-async def chart(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    with open("may_chart.png", "rb") as photo:
-        await update.message.reply_photo(photo)
-
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("ridecheck", ridecheck))
-    app.add_handler(CommandHandler("chart", chart))
     logger.info("Bot started")
     app.run_polling()
 
